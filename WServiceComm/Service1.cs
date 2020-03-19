@@ -19,6 +19,9 @@ namespace WServiceComm
         Timer timerES = new Timer();
         int IntervalES = Convert.ToInt32(ConfigurationManager.AppSettings["intervalES"].ToString());
 
+        Timer timerES_bck = new Timer();
+        int IntervalES_bck = Convert.ToInt32(ConfigurationManager.AppSettings["intervalES_Bck"].ToString());
+
         public Service1()
         {
             InitializeComponent();
@@ -31,9 +34,14 @@ namespace WServiceComm
             //timer.Interval = Interval;
             //timer.Enabled = true;
 
+            timerES_bck.Elapsed += new ElapsedEventHandler(OnElapsedTimeES_Bck);
+            timerES_bck.Interval = IntervalES_bck;
+            timerES_bck.Enabled = true;
+
             timerES.Elapsed += new ElapsedEventHandler(OnElapsedTimeES);
             timerES.Interval = IntervalES;
             timerES.Enabled = true;
+
         }
 
         private void OnElapsedTime(object source, ElapsedEventArgs e)
@@ -44,6 +52,17 @@ namespace WServiceComm
             //WriteLog("{0}" + " " + data.Conectar());
             //WriteLog("{0}" + " " + data.Desconectar());
             
+        }
+
+        private void OnElapsedTimeES_Bck(object source, ElapsedEventArgs e)
+        {
+            WriteLog(string.Format("{0} Inicia Proceso de Borrado Index ES Back " + ConfigurationManager.AppSettings["pathES"].ToString(), IntervalES_bck));
+            EjecutarProceso(ConfigurationManager.AppSettings["pathCurl"].ToString(), ConfigurationManager.AppSettings["parametersCurl_Bck"].ToString(), "Borrado de Index Bck");
+            WriteLog(string.Format("{0} Termina Proceso de Borrado Index ES Back " + ConfigurationManager.AppSettings["pathES"].ToString(), IntervalES_bck));
+
+            WriteLog(string.Format("{0} Inicia Proceso de Creacion Index ES Back " + ConfigurationManager.AppSettings["pathES"].ToString() + ConfigurationManager.AppSettings["parametersES_Bck"].ToString(), IntervalES_bck));
+            EjecutarProceso(ConfigurationManager.AppSettings["pathES"].ToString(), ConfigurationManager.AppSettings["parametersES_Bck"].ToString(), "Creacion de Index Bck");
+            WriteLog(string.Format("{0} Termina Proceso de Creacion Index ES Back " + ConfigurationManager.AppSettings["parametersES_Bck"].ToString(), IntervalES_bck));
         }
 
         private void OnElapsedTimeES(object source, ElapsedEventArgs e)
@@ -89,7 +108,7 @@ namespace WServiceComm
 
                 while (!process.StandardOutput.EndOfStream)
                 {
-                    WriteLog(process.StandardOutput.ReadLine());
+                    //WriteLog(process.StandardOutput.ReadLine());
                 }
 
                 process.WaitForExit();
