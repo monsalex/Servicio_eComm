@@ -34,6 +34,8 @@ namespace WServiceComm
         {
             // ACCCION
             WriteLog("{0} ms elapsed");
+            Data data = new Data();
+            
         }
 
         protected override void OnStop()
