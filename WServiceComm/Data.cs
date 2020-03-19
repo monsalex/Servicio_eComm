@@ -15,5 +15,27 @@ namespace WServiceComm
         public Data() {
             connect.ConnectionString = cadena;
         }
+
+        public string Conectar() {
+            try
+            { connect.Open();
+                return "Conectado";
+            }
+            catch (Exception ex) { return ex.Message; }
+            finally { }
+        }
+
+        public string Desconectar() {
+            try
+            {
+                connect.Close();
+                return "Desconectado";
+            }
+            catch (Exception ex)
+            {
+
+                return ex.Message;
+            }
+        }
     }
 }
