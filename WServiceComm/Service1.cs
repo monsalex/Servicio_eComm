@@ -22,6 +22,12 @@ namespace WServiceComm
         Timer timerES_bck = new Timer();
         int IntervalES_bck = Convert.ToInt32(ConfigurationManager.AppSettings["intervalES_Bck"].ToString());
 
+        Timer timerReferenciados = new Timer();
+        int InterReferenciados = Convert.ToInt32(ConfigurationManager.AppSettings["intervaloCancelaRef"].ToString());
+
+        Timer timerFacturacion = new Timer();
+        int InterFacturacion = Convert.ToInt32(ConfigurationManager.AppSettings["intervalCorreo"].ToString());
+
         public Service1()
         {
             InitializeComponent();
@@ -41,6 +47,34 @@ namespace WServiceComm
             timerES.Elapsed += new ElapsedEventHandler(OnElapsedTimeES);
             timerES.Interval = IntervalES;
             timerES.Enabled = true;
+
+            timerReferenciados.Elapsed += new ElapsedEventHandler(OnElapsedTimeReferenciados);
+            timerReferenciados.Interval = InterReferenciados;
+            timerReferenciados.Enabled = true;
+
+            timerFacturacion.Elapsed += new ElapsedEventHandler(OnElapsedTimeFacturacion);
+            timerFacturacion.Interval = InterFacturacion;
+            timerFacturacion.Enabled = true;
+        }
+
+        private void OnElapsedTimeFacturacion(object source, ElapsedEventArgs e)
+        {
+            string message = string.Empty;
+            string fileOrigin = ConfigurationManager.AppSettings["fileOrigin"].ToString();
+            string fileDestination = ConfigurationManager.AppSettings["fileDestination"].ToString();
+            WriteLog(string.Format("{0} ms elapsed; Facturacion", InterReferenciados));
+            Data data = new Data();
+            message = data.ProcesaFacturacion(fileOrigin, fileDestination);
+            WriteLog(string.Format("{0} ms elapsed; Fin Facturacion: " + message, InterReferenciados));
+        }
+
+        private void OnElapsedTimeReferenciados(object source, ElapsedEventArgs e)
+        {
+            int act = 0;
+            WriteLog(string.Format("{0} ms elapsed; Actualizacion", InterReferenciados));
+            Data data = new Data();
+            act = data.CancelaPagosReferenciados();
+            WriteLog(string.Format("{0} ms elapsed; Fin Actualizacion: " + act.ToString(), InterReferenciados));
 
         }
 
