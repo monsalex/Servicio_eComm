@@ -98,9 +98,7 @@ namespace WServiceComm
                         Arguments = Argumentos,
                         UseShellExecute = false,
                         RedirectStandardOutput = true,
-                        CreateNoWindow = true,
-                        LoadUserProfile  =true,
-                        Verb = "runas"
+                        CreateNoWindow = true
                     }
                 };
 
@@ -108,7 +106,7 @@ namespace WServiceComm
 
                 while (!process.StandardOutput.EndOfStream)
                 {
-                    //WriteLog(process.StandardOutput.ReadLine());
+                    WriteLog(process.StandardOutput.ReadLine());
                 }
 
                 process.WaitForExit();
