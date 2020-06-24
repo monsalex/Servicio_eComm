@@ -65,7 +65,7 @@ namespace WServiceComm
                     if (resUpdate > 0)
                     {
                         fiOrigin = fileOrigin + fi.Name.Split('.')[0];
-                        fiDestination = fileDestination + fi.Name.Substring(fi.Name.IndexOf("]") + 1).Split('.')[0].Trim();
+                        fiDestination = fileDestination + fi.Name.Substring(fi.Name.IndexOf("]") + 1).Split('.')[0].Trim().Replace(" - ", "-");
 
                         DirectoryInfo diDes = new DirectoryInfo(fileDestination);
 
@@ -82,7 +82,7 @@ namespace WServiceComm
 
                         this.Conectar();
 
-                        command.CommandText = "update [ECOMM_Orders].[dbo].[Facturacion] set NombreArchivoSalida = '"+ fi.Name.Substring(fi.Name.IndexOf("]") + 1).Split('.')[0].Trim() + "' Where NombreArchivoSalida like '%" + fiName.Trim() + "%'; ";
+                        command.CommandText = "update [ECOMM_Orders].[dbo].[Facturacion] set NombreArchivoSalida = '"+ fi.Name.Substring(fi.Name.IndexOf("]") + 1).Split('.')[0].Trim().Replace(" - ", "-") + "' Where NombreArchivoSalida like '%" + fiName.Trim() + "%'; ";
                         command.Connection = connect;
 
                         resUpdate = command.ExecuteNonQuery();
