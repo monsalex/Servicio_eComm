@@ -82,7 +82,7 @@ namespace WServiceComm
 
                         this.Conectar();
 
-                        command.CommandText = "update [ECOMM_Orders].[dbo].[Facturacion] set NombreArchivoSalida = "+ fi.Name.Substring(fi.Name.IndexOf("]") + 1).Split('.')[0].Trim() + " Where NombreArchivoSalida like '%" + fiName.Trim() + "%'; ";
+                        command.CommandText = "update [ECOMM_Orders].[dbo].[Facturacion] set NombreArchivoSalida = '"+ fi.Name.Substring(fi.Name.IndexOf("]") + 1).Split('.')[0].Trim() + "' Where NombreArchivoSalida like '%" + fiName.Trim() + "%'; ";
                         command.Connection = connect;
 
                         resUpdate = command.ExecuteNonQuery();
