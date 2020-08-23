@@ -14,7 +14,9 @@ namespace ConsoleTest
             Data data = new Data();
             string fileOrigin = @"E:\Factura\IN\";
             string fileDestination = @"E:\Factura\OUT\";
-            data.ProcesaFacturacion(fileOrigin, fileDestination);
+            //data.ProcesaFacturacion(fileOrigin, fileDestination);
+            //int var = data.ActualizaStatusEntregado();
+            Task taasky = Data.Tracking();
         }
     }
 }
