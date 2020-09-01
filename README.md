@@ -33,3 +33,7 @@ En el arcihvo de configuración se pueden establecer los valores con los cuales 
 
 #Una vez que se envian por correo se mueven para esta ruta.
 # < add key="fileDestination" value="..\Content\files\"/>
+
+#### Instalar el ejecutable como servicio Windows
+# https://docs.microsoft.com/en-us/dotnet/framework/windows-services/how-to-install-and-uninstall-services
+# el ejectubale que se debe de instalar como servicio es el que se encuentra en la carpeta de deploy.
