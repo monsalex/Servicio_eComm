@@ -36,4 +36,5 @@ En el arcihvo de configuración se pueden establecer los valores con los cuales 
 
 #### Instalar el ejecutable como servicio Windows
 #https://docs.microsoft.com/en-us/dotnet/framework/windows-services/how-to-install-and-uninstall-services
+
 #El ejectubale que se debe de instalar como servicio es el que se encuentra en la carpeta ServicesEcomm.zip
